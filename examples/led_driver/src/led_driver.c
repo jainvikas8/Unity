@@ -17,3 +17,8 @@ void led_driver_turn_on(uint16_t number)
 {
     *led_address = 1;
 }
+
+void led_driver_turn_off(uint16_t number)
+{
+    *led_address = 0;
+}
