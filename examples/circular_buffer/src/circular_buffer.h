@@ -4,6 +4,7 @@
 
     #include <stdint.h>
 
-    uint16_t* circular_buffer_init();
+    uint16_t* circular_buffer_init(void);
+    uint16_t circular_buffer_get_max_size(void);
 
 #endif //_CIRCULAR_BUFFER_H_

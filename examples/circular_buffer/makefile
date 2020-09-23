@@ -39,6 +39,7 @@ SRC_FILES1=\
   $(UNITY_ROOT)/extras/fixture/src/unity_fixture.c \
   test/circular_buffer_test.c \
   test/circular_buffer_test_runner.c \
+  src/circular_buffer.c \
   test_unity_circular_buffer.c
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src  
 SYMBOLS=-DUNITY_FIXTURE_NO_EXTRAS
