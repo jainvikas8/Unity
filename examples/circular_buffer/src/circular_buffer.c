@@ -1,6 +1,5 @@
 #include "circular_buffer.h"
 #include <string.h>
-#include <stddef.h>
 
 #define MAX_BUFF_SIZE 10
 
