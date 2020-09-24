@@ -35,3 +35,8 @@ uint8_t circular_buffer_push_element(uint16_t data)
 
     return 1;
 }
+
+uint16_t circular_buffer_num_available_elements(void)
+{
+    return num_available_elements;
+}

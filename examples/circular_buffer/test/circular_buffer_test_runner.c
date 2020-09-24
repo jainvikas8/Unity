@@ -11,4 +11,9 @@ TEST_GROUP_RUNNER(CIRCULAR_BUFFER)
     RUN_TEST_CASE(CIRCULAR_BUFFER, push_buffer_one_element);
     RUN_TEST_CASE(CIRCULAR_BUFFER, push_buffer_all_elements);
     RUN_TEST_CASE(CIRCULAR_BUFFER, push_buffer_overflow_elements);
+
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_one);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_few);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_all);
 }

@@ -69,3 +69,46 @@ TEST(CIRCULAR_BUFFER, push_buffer_overflow_elements)
 
     TEST_ASSERT_NOT_EQUAL_HEX8(0, circular_buffer_push_element(data));
 }
+
+TEST(CIRCULAR_BUFFER, buffer_num_elements_present)
+{
+    TEST_ASSERT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+}
+
+TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_one)
+{
+    uint16_t data = 0xffee;
+
+    circular_buffer_push_element(data);
+
+    TEST_ASSERT_NOT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+    TEST_ASSERT_EQUAL_HEX16(1, circular_buffer_num_available_elements());
+}
+
+TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_few)
+{
+    uint16_t data = 0xffee;
+    uint16_t index;
+
+    for (index = 0 ; index < (buff_size/2) ; index++)
+    {
+        circular_buffer_push_element(data);
+    }
+
+    TEST_ASSERT_NOT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+    TEST_ASSERT_EQUAL_HEX16(index, circular_buffer_num_available_elements());
+}
+
+TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_all)
+{
+    uint16_t data = 0xffee;
+    uint16_t index;
+
+    for (index = 0 ; index < buff_size ; index++)
+    {
+        circular_buffer_push_element(data);
+    }
+
+    TEST_ASSERT_NOT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+    TEST_ASSERT_EQUAL_HEX16(index, circular_buffer_num_available_elements());
+}
