@@ -16,4 +16,5 @@ TEST_GROUP_RUNNER(CIRCULAR_BUFFER)
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_one);
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_few);
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_all);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_every_iteration);
 }
