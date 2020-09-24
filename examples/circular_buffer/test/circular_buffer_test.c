@@ -40,3 +40,32 @@ TEST(CIRCULAR_BUFFER, init_buffer_test_empty_all_elements)
         buff_ptr++;
     }
 }
+
+TEST(CIRCULAR_BUFFER, push_buffer_one_element)
+{
+    uint16_t data = 0xffee;
+
+    TEST_ASSERT_EQUAL_HEX8(0, circular_buffer_push_element(data));
+}
+
+TEST(CIRCULAR_BUFFER, push_buffer_all_elements)
+{
+    uint16_t data = 0xffee;
+
+    for (uint16_t index = 0 ; index < buff_size ; index++)
+    {
+        TEST_ASSERT_EQUAL_HEX8(0, circular_buffer_push_element(data));
+    }
+}
+
+TEST(CIRCULAR_BUFFER, push_buffer_overflow_elements)
+{
+    uint16_t data = 0xffee;
+
+    for (uint16_t index = 0 ; index < buff_size ; index++)
+    {
+        TEST_ASSERT_EQUAL_HEX8(0, circular_buffer_push_element(data));
+    }
+
+    TEST_ASSERT_NOT_EQUAL_HEX8(0, circular_buffer_push_element(data));
+}

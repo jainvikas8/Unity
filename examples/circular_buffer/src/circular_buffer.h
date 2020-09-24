@@ -7,5 +7,6 @@
 
     uint16_t* circular_buffer_init(void);
     uint16_t circular_buffer_get_max_size(void);
+    uint8_t circular_buffer_push_element(uint16_t);
 
 #endif //_CIRCULAR_BUFFER_H_
