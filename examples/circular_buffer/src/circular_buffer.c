@@ -6,11 +6,14 @@
 static uint16_t buff[MAX_BUFF_SIZE];
 uint16_t *write_ptr = NULL;
 uint16_t *read_ptr = NULL;
+uint16_t *start_ptr = NULL;
+uint16_t *end_ptr = NULL;
 uint16_t num_available_elements = 0;
 
 uint16_t* circular_buffer_init(void)
 {
-    read_ptr = write_ptr = &buff[0];
+    read_ptr = write_ptr = start_ptr = &buff[0];
+    end_ptr = &buff[MAX_BUFF_SIZE - 1];
     num_available_elements = 0;
 
     memset(buff, 0x00, sizeof(buff));
@@ -29,6 +32,9 @@ uint8_t circular_buffer_push_element(uint16_t data)
     {
         *write_ptr++ = data;
         ++num_available_elements;
+
+        if(write_ptr > end_ptr)
+            write_ptr = start_ptr;
 
         return 0;
     }
@@ -49,6 +55,9 @@ uint16_t* circular_buffer_pop_element(void)
     {
         --num_available_elements;
         data = read_ptr++;
+
+        if(read_ptr > end_ptr)
+            read_ptr = start_ptr;
     }
 
     return data;

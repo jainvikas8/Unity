@@ -22,5 +22,11 @@ TEST_GROUP_RUNNER(CIRCULAR_BUFFER)
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_read_one_on_empty_buffer_check_num_elements);
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_read_one_and_compare);
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_num_elements_present_after_reading_one);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_all_read_half_and_check_num_elements);
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_read_all_and_compare_check_num_elements);
+
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_until_max_buff_size_different_data);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_double_max_buff_size_different_data);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_num_elements);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_data_check);
 }
