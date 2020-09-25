@@ -40,3 +40,16 @@ uint16_t circular_buffer_num_available_elements(void)
 {
     return num_available_elements;
 }
+
+uint16_t* circular_buffer_pop_element(void)
+{
+    uint16_t *data = NULL;
+
+    if(num_available_elements)
+    {
+        --num_available_elements;
+        data = read_ptr++;
+    }
+
+    return data;
+}

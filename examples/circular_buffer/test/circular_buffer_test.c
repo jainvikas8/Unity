@@ -118,3 +118,58 @@ TEST(CIRCULAR_BUFFER, buffer_num_elements_present_every_iteration)
         TEST_ASSERT_EQUAL_HEX16(++index, circular_buffer_num_available_elements());
     }
 }
+
+TEST(CIRCULAR_BUFFER, buffer_read_one_on_empty_buffer)
+{
+    uint16_t *read_data = 0x0000;
+
+    read_data = circular_buffer_pop_element();
+
+    TEST_ASSERT_NULL(read_data);
+}
+
+TEST(CIRCULAR_BUFFER, buffer_read_one_on_empty_buffer_check_num_elements)
+{
+    circular_buffer_pop_element();
+
+    TEST_ASSERT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+}
+
+TEST(CIRCULAR_BUFFER, buffer_read_one_and_compare)
+{
+    uint16_t *read_data = NULL;
+
+    circular_buffer_push_element(dummy_data);
+
+    read_data = circular_buffer_pop_element();
+
+    TEST_ASSERT_NOT_NULL(read_data);
+    TEST_ASSERT_EQUAL_HEX16(dummy_data, *read_data);
+}
+
+TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_reading_one)
+{
+    circular_buffer_push_element(dummy_data);
+    circular_buffer_pop_element();
+
+    TEST_ASSERT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+}
+
+TEST(CIRCULAR_BUFFER, buffer_read_all_and_compare_check_num_elements)
+{
+    uint16_t index, *read_data;
+
+    for (index = 0 ; index < buff_size ; index++)
+    {
+        circular_buffer_push_element(dummy_data);
+    }
+
+    for (index = 0 ; index < buff_size ; index++)
+    {
+        read_data = circular_buffer_pop_element();
+        TEST_ASSERT_NOT_NULL(read_data);
+        TEST_ASSERT_EQUAL_HEX16(dummy_data, *read_data);
+    }
+
+    TEST_ASSERT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+}
