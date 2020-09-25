@@ -3,7 +3,9 @@
 
 static uint16_t *buff_ptr = NULL,
                 buff_size = 0,
-                dummy_data;
+                dummy_data,
+                index,
+                *read_data = NULL;
 
 TEST_GROUP(CIRCULAR_BUFFER);
 
@@ -12,6 +14,8 @@ TEST_SETUP(CIRCULAR_BUFFER)
     buff_ptr = circular_buffer_init();
     buff_size = circular_buffer_get_max_size();
     dummy_data = 0xffee;
+    read_data = NULL;
+    index = 0;
 }
 
 TEST_TEAR_DOWN(CIRCULAR_BUFFER)
@@ -37,7 +41,7 @@ TEST(CIRCULAR_BUFFER, init_buffer_test_empty_first_element)
 
 TEST(CIRCULAR_BUFFER, init_buffer_test_empty_all_elements)
 {
-    for (uint16_t index = 0 ; index < buff_size ; index++)
+    for (index = 0 ; index < buff_size ; index++)
     {
         TEST_ASSERT_EQUAL_HEX16(0, *buff_ptr);
         buff_ptr++;
@@ -51,7 +55,7 @@ TEST(CIRCULAR_BUFFER, push_buffer_one_element)
 
 TEST(CIRCULAR_BUFFER, push_buffer_all_elements)
 {
-    for (uint16_t index = 0 ; index < buff_size ; index++)
+    for (index = 0 ; index < buff_size ; index++)
     {
         TEST_ASSERT_EQUAL_HEX8(0, circular_buffer_push_element(dummy_data));
     }
@@ -59,7 +63,7 @@ TEST(CIRCULAR_BUFFER, push_buffer_all_elements)
 
 TEST(CIRCULAR_BUFFER, push_buffer_overflow_elements)
 {
-    for (uint16_t index = 0 ; index < buff_size ; index++)
+    for (index = 0 ; index < buff_size ; index++)
     {
         TEST_ASSERT_EQUAL_HEX8(0, circular_buffer_push_element(dummy_data));
     }
@@ -82,8 +86,6 @@ TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_one)
 
 TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_few)
 {
-    uint16_t index;
-
     for (index = 0 ; index < (buff_size/2) ; index++)
     {
         circular_buffer_push_element(dummy_data);
@@ -95,8 +97,6 @@ TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_few)
 
 TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_all)
 {
-    uint16_t index;
-
     for (index = 0 ; index < buff_size ; index++)
     {
         circular_buffer_push_element(dummy_data);
@@ -108,9 +108,7 @@ TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_adding_all)
 
 TEST(CIRCULAR_BUFFER, buffer_num_elements_present_every_iteration)
 {
-    uint16_t index = 0;
-
-    while (index < buff_size)
+    for (index = 0; index < buff_size;)
     {
         circular_buffer_push_element(dummy_data);
 
@@ -121,8 +119,7 @@ TEST(CIRCULAR_BUFFER, buffer_num_elements_present_every_iteration)
 
 TEST(CIRCULAR_BUFFER, buffer_read_one_on_empty_buffer)
 {
-    uint16_t *read_data = 0x0000;
-
+    read_data = &dummy_data;
     read_data = circular_buffer_pop_element();
 
     TEST_ASSERT_NULL(read_data);
@@ -137,8 +134,6 @@ TEST(CIRCULAR_BUFFER, buffer_read_one_on_empty_buffer_check_num_elements)
 
 TEST(CIRCULAR_BUFFER, buffer_read_one_and_compare)
 {
-    uint16_t *read_data = NULL;
-
     circular_buffer_push_element(dummy_data);
 
     read_data = circular_buffer_pop_element();
@@ -157,8 +152,6 @@ TEST(CIRCULAR_BUFFER, buffer_num_elements_present_after_reading_one)
 
 TEST(CIRCULAR_BUFFER, buffer_read_all_and_compare_check_num_elements)
 {
-    uint16_t index, *read_data;
-
     for (index = 0 ; index < buff_size ; index++)
     {
         circular_buffer_push_element(dummy_data);
@@ -176,8 +169,6 @@ TEST(CIRCULAR_BUFFER, buffer_read_all_and_compare_check_num_elements)
 
 TEST(CIRCULAR_BUFFER, buffer_write_all_read_half_and_check_num_elements)
 {
-    uint16_t index;
-
     for (index = 0 ; index < buff_size ; index++)
     {
         circular_buffer_push_element(dummy_data);
@@ -193,8 +184,6 @@ TEST(CIRCULAR_BUFFER, buffer_write_all_read_half_and_check_num_elements)
 
 TEST(CIRCULAR_BUFFER, buffer_write_and_read_until_max_buff_size_different_data)
 {
-    uint16_t index, *read_data;
-
     for (index = 0 ; index < buff_size ; index++)
     {
         circular_buffer_push_element(dummy_data);
@@ -210,8 +199,6 @@ TEST(CIRCULAR_BUFFER, buffer_write_and_read_until_max_buff_size_different_data)
 
 TEST(CIRCULAR_BUFFER, buffer_write_and_read_double_max_buff_size_different_data)
 {
-    uint16_t index, *read_data;
-
     for (index = 0 ; index < (buff_size*2) ; index++)
     {
         TEST_ASSERT_EQUAL_HEX8(0, circular_buffer_push_element(dummy_data));
@@ -229,8 +216,6 @@ TEST(CIRCULAR_BUFFER, buffer_write_and_read_double_max_buff_size_different_data)
 
 TEST(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_num_elements)
 {
-    uint16_t index;
-
     for (index = 0 ; index < buff_size ; index++)
     {
         circular_buffer_push_element(dummy_data);
@@ -261,12 +246,10 @@ TEST(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_num_eleme
 
 TEST(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_data_check)
 {
-    uint16_t    index, 
-                expected_data [buff_size * 2],
+    uint16_t    expected_data [buff_size * 2],
                 write_index = 0,
-                read_index = 0,
-                *read_data = NULL;
-
+                read_index = 0;
+    
     for (index = 0 ; index < buff_size ; index++)
     {
         circular_buffer_push_element(dummy_data);

@@ -3,12 +3,12 @@
 
 #define MAX_BUFF_SIZE 10
 
-static uint16_t buff[MAX_BUFF_SIZE];
-uint16_t *write_ptr = NULL;
-uint16_t *read_ptr = NULL;
-uint16_t *start_ptr = NULL;
-uint16_t *end_ptr = NULL;
-uint16_t num_available_elements = 0;
+static uint16_t buff[MAX_BUFF_SIZE],
+                *write_ptr = NULL,
+                *read_ptr = NULL,
+                *start_ptr = NULL,
+                *end_ptr = NULL,
+                num_available_elements = 0;
 
 uint16_t* circular_buffer_init(void)
 {
@@ -30,11 +30,11 @@ uint8_t circular_buffer_push_element(uint16_t data)
 {
     if(num_available_elements < MAX_BUFF_SIZE)
     {
-        *write_ptr++ = data;
-        ++num_available_elements;
-
         if(write_ptr > end_ptr)
             write_ptr = start_ptr;
+
+        *write_ptr++ = data;
+        ++num_available_elements;
 
         return 0;
     }
@@ -53,11 +53,11 @@ uint16_t* circular_buffer_pop_element(void)
 
     if(num_available_elements)
     {
-        --num_available_elements;
-        data = read_ptr++;
-
         if(read_ptr > end_ptr)
             read_ptr = start_ptr;
+
+        --num_available_elements;
+        data = read_ptr++;
     }
 
     return data;
