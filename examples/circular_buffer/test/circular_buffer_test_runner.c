@@ -29,4 +29,5 @@ TEST_GROUP_RUNNER(CIRCULAR_BUFFER)
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_double_max_buff_size_different_data);
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_num_elements);
     RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_data_check);
+    RUN_TEST_CASE(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_data_check_and_num_elements);
 }

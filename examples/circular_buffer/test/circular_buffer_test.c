@@ -1,11 +1,11 @@
 #include "unity_fixture.h"
 #include "circular_buffer.h"
 
-static uint16_t *buff_ptr = NULL,
-                buff_size = 0,
+static uint16_t *buff_ptr,
+                buff_size,
                 dummy_data,
                 index,
-                *read_data = NULL;
+                *read_data;
 
 TEST_GROUP(CIRCULAR_BUFFER);
 
@@ -281,5 +281,39 @@ TEST(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_data_chec
         read_data = circular_buffer_pop_element();
 
         TEST_ASSERT_EQUAL_HEX16(expected_data[read_index++], *read_data);
+    }
+}
+
+TEST(CIRCULAR_BUFFER, buffer_write_and_read_check_circular_motion_with_data_check_and_num_elements)
+{
+    uint16_t    expected_data [buff_size],
+                repeater,
+                *prev_read_pointer;
+
+    prev_read_pointer = NULL;
+
+    for (repeater = 0 ; repeater < 20 ; repeater++)
+    {
+        for (index = 0 ; index < buff_size ; index++)
+        {
+            circular_buffer_push_element(dummy_data);
+            expected_data [index] = dummy_data++;
+        }
+        TEST_ASSERT_EQUAL_HEX16(buff_size, circular_buffer_num_available_elements());
+
+        for (index = 0 ; index < buff_size ; index++)
+        {
+            read_data = circular_buffer_pop_element();
+
+            TEST_ASSERT_EQUAL_HEX16(expected_data[index], *read_data);
+        }
+        TEST_ASSERT_EQUAL_HEX16(0, circular_buffer_num_available_elements());
+
+        if (repeater > 0)
+        {
+            TEST_ASSERT_EQUAL_PTR(read_data, prev_read_pointer);
+        }
+
+        prev_read_pointer = read_data;
     }
 }
