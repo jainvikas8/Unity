@@ -43,7 +43,7 @@ TEST(LED_DRIVER, turn_on_multiple_leds)
     TEST_ASSERT_EQUAL_HEX16(0x180, virtual_leds);
 }
 
-TEST(LED_DRIVER, turn_all_leds)
+TEST(LED_DRIVER, turn_on_all_leds)
 {
     led_driver_turn_on_all();
 
@@ -56,4 +56,12 @@ TEST(LED_DRIVER, turn_off_any_led)
     led_driver_turn_off(8);
 
     TEST_ASSERT_EQUAL_HEX16(0xFF7F, virtual_leds);
+}
+
+TEST(LED_DRIVER, led_memory_is_not_readable)
+{
+    virtual_leds = 0xFFFF;
+    led_driver_turn_on(7);
+
+    TEST_ASSERT_EQUAL_HEX16(0x0040, virtual_leds);
 }
