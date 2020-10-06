@@ -6,5 +6,10 @@ TEST_GROUP_RUNNER(LED_DRIVER)
 
     RUN_TEST_CASE(LED_DRIVER, turn_on_led_one);
     RUN_TEST_CASE(LED_DRIVER, turn_off_led_one);
+
     RUN_TEST_CASE(LED_DRIVER, turn_on_multiple_leds);
+
+    RUN_TEST_CASE(LED_DRIVER, turn_on_all_leds);
+    RUN_TEST_CASE(LED_DRIVER, turn_off_any_led);
+
 }
