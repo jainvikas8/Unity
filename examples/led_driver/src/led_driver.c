@@ -15,7 +15,7 @@ void led_driver_destroy(void)
 
 void led_driver_turn_on(uint16_t number)
 {
-    *led_address = 1;
+    *led_address |= (1 << (number - 1));
 }
 
 void led_driver_turn_off(uint16_t number)
