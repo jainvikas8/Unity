@@ -18,6 +18,14 @@ static uint16_t led_convert_to_bit(uint16_t number)
     return (1 << (number - 1));
 }
 
+static uint8_t led_check_boundary(uint16_t number)
+{
+    if(number == 0 || number > 16)
+        return 1;
+
+    return 0;
+}
+
 void led_driver_create(uint16_t *address)
 {
     led_address = address;
@@ -32,7 +40,7 @@ void led_driver_destroy(void)
 
 void led_driver_turn_on(uint16_t number)
 {
-    if(number == 0 || number > 16)
+    if(led_check_boundary(number) > 0)
         return;
 
     led_image |= led_convert_to_bit(number);
@@ -41,7 +49,7 @@ void led_driver_turn_on(uint16_t number)
 
 void led_driver_turn_off(uint16_t number)
 {
-    if(number == 0 || number > 16)
+    if(led_check_boundary(number) > 0)
         return;
     
     led_image &= ~led_convert_to_bit(number);
