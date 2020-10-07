@@ -32,6 +32,9 @@ void led_driver_destroy(void)
 
 void led_driver_turn_on(uint16_t number)
 {
+    if(number == 0 || number > 16)
+        return;
+
     led_image |= led_convert_to_bit(number);
     update_hardware();
 }

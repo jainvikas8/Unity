@@ -65,3 +65,26 @@ TEST(LED_DRIVER, led_memory_is_not_readable)
 
     TEST_ASSERT_EQUAL_HEX16(0x0040, virtual_leds);
 }
+
+TEST(LED_DRIVER, check_upper_and_lower_bounds)
+{
+    led_driver_turn_on(1);
+    led_driver_turn_on(16);
+
+    TEST_ASSERT_EQUAL_HEX16(0x8001, virtual_leds);
+}
+
+TEST(LED_DRIVER, check_out_of_bounds_when_turning_on)
+{
+    led_driver_turn_on(0);
+    TEST_ASSERT_EQUAL_HEX16(0x0, virtual_leds);
+
+    led_driver_turn_on(17);
+    TEST_ASSERT_EQUAL_HEX16(0x0, virtual_leds);
+
+    led_driver_turn_on(33);
+    TEST_ASSERT_EQUAL_HEX16(0x0, virtual_leds);
+
+    led_driver_turn_on(3141);
+    TEST_ASSERT_EQUAL_HEX16(0x0, virtual_leds);
+}
