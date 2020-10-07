@@ -88,3 +88,20 @@ TEST(LED_DRIVER, check_out_of_bounds_when_turning_on)
     led_driver_turn_on(3141);
     TEST_ASSERT_EQUAL_HEX16(0x0, virtual_leds);
 }
+
+TEST(LED_DRIVER, check_out_of_bounds_when_turning_off)
+{
+    led_driver_turn_on_all();
+
+    led_driver_turn_off(0);
+    TEST_ASSERT_EQUAL_HEX16(0xFFFF, virtual_leds);
+
+    led_driver_turn_off(17);
+    TEST_ASSERT_EQUAL_HEX16(0xFFFF, virtual_leds);
+
+    led_driver_turn_off(33);
+    TEST_ASSERT_EQUAL_HEX16(0xFFFF, virtual_leds);
+
+    led_driver_turn_off(3141);
+    TEST_ASSERT_EQUAL_HEX16(0xFFFF, virtual_leds);
+}
