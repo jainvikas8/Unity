@@ -16,4 +16,6 @@ TEST_GROUP_RUNNER(LED_DRIVER)
     RUN_TEST_CASE(LED_DRIVER, check_upper_and_lower_bounds);
     RUN_TEST_CASE(LED_DRIVER, check_out_of_bounds_when_turning_on);
     RUN_TEST_CASE(LED_DRIVER, check_out_of_bounds_when_turning_off);
+
+    RUN_TEST_CASE(LED_DRIVER, out_of_bounds_runtime_error);
 }

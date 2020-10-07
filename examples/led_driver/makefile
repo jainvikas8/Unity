@@ -40,8 +40,9 @@ SRC_FILES1=\
   test/led_driver_test.c \
   test/led_driver_test_runner.c \
   src/led_driver.c \
+  ../mocks/Runtime_error_stub.c \
   test_unity_led_driver.c
-INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src  
+INC_DIRS=-Isrc -I$(UNITY_ROOT)/src -I$(UNITY_ROOT)/extras/fixture/src -I$(UNITY_ROOT)/examples/mocks 
 SYMBOLS=-DUNITY_FIXTURE_NO_EXTRAS
 
 all: clean default
