@@ -7,6 +7,11 @@ enum
     ALL_LEDS_ON = ~0,
     ALL_LEDS_OFF = ~ALL_LEDS_ON
 };
+enum
+{
+    FIRST_LED = 1,
+    LAST_LED = 16
+};
 
 static void update_hardware(void)
 {
@@ -20,10 +25,10 @@ static uint16_t led_convert_to_bit(uint16_t number)
 
 static uint8_t led_check_boundary(uint16_t number)
 {
-    if(number == 0 || number > 16)
-        return 1;
+    if(number >= FIRST_LED && number <= LAST_LED)
+        return 0;
 
-    return 0;
+    return 1;
 }
 
 void led_driver_create(uint16_t *address)
