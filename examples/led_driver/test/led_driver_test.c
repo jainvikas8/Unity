@@ -114,3 +114,8 @@ TEST(LED_DRIVER, out_of_bounds_runtime_error)
 
     TEST_ASSERT_EQUAL(-1, RES_get_last_parameter());
 }
+
+IGNORE_TEST(LED_DRIVER, out_of_bounds_todo)
+{
+    /* TODO: what should we do during runtime */
+}
