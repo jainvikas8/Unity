@@ -20,4 +20,6 @@ TEST_GROUP_RUNNER(LED_DRIVER)
     RUN_TEST_CASE(LED_DRIVER, out_of_bounds_runtime_error);
 
     RUN_TEST_CASE(LED_DRIVER, out_of_bounds_todo);
+
+    RUN_TEST_CASE(LED_DRIVER, check_led_is_on);
 }

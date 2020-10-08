@@ -119,3 +119,12 @@ IGNORE_TEST(LED_DRIVER, out_of_bounds_todo)
 {
     /* TODO: what should we do during runtime */
 }
+
+TEST(LED_DRIVER, check_led_is_on)
+{
+    TEST_ASSERT_FALSE(led_driver_is_on(11));
+
+    led_driver_turn_on(11);
+
+    TEST_ASSERT_TRUE(led_driver_is_on(11));
+}

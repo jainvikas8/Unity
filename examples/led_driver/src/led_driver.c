@@ -23,12 +23,12 @@ static uint16_t led_convert_to_bit(uint16_t number)
     return (1 << (number - 1));
 }
 
-static uint8_t led_check_boundary(uint16_t number)
+static bool led_check_boundary(uint16_t number)
 {
     if(number >= FIRST_LED && number <= LAST_LED)
-        return 0;
+        return false;
 
-    return 1;
+    return true;
 }
 
 void led_driver_create(uint16_t *address)
@@ -65,4 +65,9 @@ void led_driver_turn_on_all(void)
 {
     led_image = ALL_LEDS_ON;
     update_hardware();
+}
+
+bool led_driver_is_on(uint16_t number)
+{
+    return (led_image & led_convert_to_bit(number));
 }
