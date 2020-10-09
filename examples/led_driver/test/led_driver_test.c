@@ -8,6 +8,7 @@ static uint16_t virtual_leds = 0xFFFF;
 
 TEST_SETUP(LED_DRIVER)
 {
+    RES_reset();
     led_driver_create(&virtual_leds);
 }
 
@@ -124,10 +125,18 @@ TEST(LED_DRIVER, check_out_of_bounds_when_turning_off)
     TEST_ASSERT_EQUAL_HEX16(0xFFFF, virtual_leds);
 }
 
-TEST(LED_DRIVER, out_of_bounds_runtime_error)
+TEST(LED_DRIVER, out_of_bounds_runtime_error_when_on)
 {
     led_driver_turn_on(0);
-    TEST_ASSERT_EQUAL_STRING("LED Driver: out-of-bounds LED", RES_get_last_error());
+    TEST_ASSERT_EQUAL_STRING("LED Driver: out-of-bound LED number", RES_get_last_error());
+
+    TEST_ASSERT_EQUAL(-1, RES_get_last_parameter());
+}
+
+TEST(LED_DRIVER, out_of_bounds_runtime_error_when_off)
+{
+    led_driver_turn_off(17);
+    TEST_ASSERT_EQUAL_STRING("LED Driver: out-of-bound LED number", RES_get_last_error());
 
     TEST_ASSERT_EQUAL(-1, RES_get_last_parameter());
 }

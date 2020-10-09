@@ -1,4 +1,5 @@
 #include "Runtime_error_stub.h"
+#include "Runtime_Error.h"
 
 static const char *message = "No Error";
 static int parameter = -1;

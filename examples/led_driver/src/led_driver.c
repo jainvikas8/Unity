@@ -1,4 +1,5 @@
 #include "led_driver.h"
+#include "Runtime_Error.h"
 
 static uint16_t *led_address;
 static uint16_t led_image;
@@ -46,7 +47,10 @@ void led_driver_destroy(void)
 void led_driver_turn_on(uint16_t number)
 {
     if(led_check_boundary(number) > 0)
+    {
+        RUNTIME_ERROR("LED Driver: out-of-bound LED number", -1);
         return;
+    }
 
     led_image |= led_convert_to_bit(number);
     update_hardware();
@@ -55,7 +59,10 @@ void led_driver_turn_on(uint16_t number)
 void led_driver_turn_off(uint16_t number)
 {
     if(led_check_boundary(number) > 0)
+    {
+        RUNTIME_ERROR("LED Driver: out-of-bound LED number", -1);
         return;
+    }
     
     led_image &= ~led_convert_to_bit(number);
     update_hardware();
