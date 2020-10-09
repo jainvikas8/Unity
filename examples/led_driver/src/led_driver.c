@@ -69,5 +69,13 @@ void led_driver_turn_on_all(void)
 
 bool led_driver_is_on(uint16_t number)
 {
+    if(led_check_boundary(number) > 0)
+        return false;
+
     return (led_image & led_convert_to_bit(number));
+}
+
+bool led_driver_is_off(uint16_t number)
+{
+    return !(led_driver_is_on(number));
 }

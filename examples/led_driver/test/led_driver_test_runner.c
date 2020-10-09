@@ -22,4 +22,6 @@ TEST_GROUP_RUNNER(LED_DRIVER)
     RUN_TEST_CASE(LED_DRIVER, out_of_bounds_todo);
 
     RUN_TEST_CASE(LED_DRIVER, check_led_is_on);
+    RUN_TEST_CASE(LED_DRIVER, check_led_out_of_bound_always_off);
+    RUN_TEST_CASE(LED_DRIVER, check_led_is_off);
 }

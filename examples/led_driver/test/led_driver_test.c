@@ -128,3 +128,20 @@ TEST(LED_DRIVER, check_led_is_on)
 
     TEST_ASSERT_TRUE(led_driver_is_on(11));
 }
+
+TEST(LED_DRIVER, check_led_is_off)
+{
+    TEST_ASSERT_TRUE(led_driver_is_off(3));
+
+    led_driver_turn_on(3);
+
+    TEST_ASSERT_FALSE(led_driver_is_off(3));
+}
+
+TEST(LED_DRIVER, check_led_out_of_bound_always_off)
+{
+    TEST_ASSERT_FALSE(led_driver_is_on(0));
+    TEST_ASSERT_TRUE(led_driver_is_off(17));
+    TEST_ASSERT_TRUE(led_driver_is_off(33));
+    TEST_ASSERT_FALSE(led_driver_is_on(3141));
+}
