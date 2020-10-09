@@ -10,6 +10,7 @@
     void led_driver_turn_on(uint16_t led_number);
     void led_driver_turn_off(uint16_t led_number);
     void led_driver_turn_on_all(void);
+    void led_driver_turn_off_all(void);
     bool led_driver_is_on(uint16_t led_number); 
     bool led_driver_is_off(uint16_t led_number); 
 

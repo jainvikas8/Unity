@@ -8,11 +8,14 @@ TEST_GROUP_RUNNER(LED_DRIVER)
     RUN_TEST_CASE(LED_DRIVER, turn_off_led_one);
 
     RUN_TEST_CASE(LED_DRIVER, turn_on_multiple_leds);
-
     RUN_TEST_CASE(LED_DRIVER, turn_on_all_leds);
+
     RUN_TEST_CASE(LED_DRIVER, turn_off_any_led);
+    RUN_TEST_CASE(LED_DRIVER, turn_off_multiple_leds);
+    RUN_TEST_CASE(LED_DRIVER, turn_off_all_leds);
 
     RUN_TEST_CASE(LED_DRIVER, led_memory_is_not_readable);
+
     RUN_TEST_CASE(LED_DRIVER, check_upper_and_lower_bounds);
     RUN_TEST_CASE(LED_DRIVER, check_out_of_bounds_when_turning_on);
     RUN_TEST_CASE(LED_DRIVER, check_out_of_bounds_when_turning_off);

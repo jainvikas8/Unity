@@ -67,6 +67,12 @@ void led_driver_turn_on_all(void)
     update_hardware();
 }
 
+void led_driver_turn_off_all(void)
+{
+    led_image = ALL_LEDS_OFF;
+    update_hardware();
+}
+
 bool led_driver_is_on(uint16_t number)
 {
     if(led_check_boundary(number) > 0)

@@ -59,6 +59,23 @@ TEST(LED_DRIVER, turn_off_any_led)
     TEST_ASSERT_EQUAL_HEX16(0xFF7F, virtual_leds);
 }
 
+TEST(LED_DRIVER, turn_off_multiple_leds)
+{
+    led_driver_turn_on_all();
+    led_driver_turn_off(9);
+    led_driver_turn_off(8);
+
+    TEST_ASSERT_EQUAL_HEX16((~(0x180) & 0xFFFF), virtual_leds);
+}
+
+TEST(LED_DRIVER, turn_off_all_leds)
+{
+    led_driver_turn_on_all();
+    led_driver_turn_off_all();
+
+    TEST_ASSERT_EQUAL_HEX16(0, virtual_leds);
+}
+
 TEST(LED_DRIVER, led_memory_is_not_readable)
 {
     virtual_leds = 0xFFFF;
@@ -110,7 +127,7 @@ TEST(LED_DRIVER, check_out_of_bounds_when_turning_off)
 TEST(LED_DRIVER, out_of_bounds_runtime_error)
 {
     led_driver_turn_on(0);
-    TEST_ASSERT_EQUAL_STRING("LED Driver: out-ofbounds LED", RES_get_last_error());
+    TEST_ASSERT_EQUAL_STRING("LED Driver: out-of-bounds LED", RES_get_last_error());
 
     TEST_ASSERT_EQUAL(-1, RES_get_last_parameter());
 }
